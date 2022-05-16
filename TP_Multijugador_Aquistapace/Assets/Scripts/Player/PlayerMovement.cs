@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody rig;
     private Animator anim;
+    private PhotonView view;
 
     // ---------------------------
 
@@ -17,11 +19,15 @@ public class PlayerMovement : MonoBehaviour
     {
         rig = GetComponent<Rigidbody>();
         anim = GetComponentInChildren<Animator>();
+        view = GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        InputMovement();
+        if(view.IsMine)
+        {
+            InputMovement();
+        }
     }
 
     private void InputMovement()
