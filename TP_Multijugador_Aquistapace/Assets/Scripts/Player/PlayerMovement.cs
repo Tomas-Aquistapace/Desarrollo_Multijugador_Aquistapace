@@ -9,6 +9,8 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private float speedRotation = 5f;
     [SerializeField] private float jumpForce = 5f;
 
+    [SerializeField] private GameObject starParticlePref;
+
     private Rigidbody rig;
     private Animator anim;
     private PhotonView view;
@@ -29,6 +31,18 @@ public class PlayerMovement : MonoBehaviour
             InputMovement();
         }
     }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.transform.tag == "Player")
+        {
+            var particle = Instantiate(starParticlePref);
+            particle.transform.localPosition = collision.GetContact(0).point;
+
+            Destroy(particle.gameObject, 1f);
+        }
+    }
+
 
     private void InputMovement()
     {

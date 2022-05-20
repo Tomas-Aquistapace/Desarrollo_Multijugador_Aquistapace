@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6362443958873245756}
   m_Layer: 0
   m_Name: Player - CuteCube
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -33,6 +33,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 9160911870816361553}
+  - {fileID: 1058632989}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -80,6 +81,7 @@ MonoBehaviour:
   speedMovement: 8
   speedRotation: 7
   jumpForce: 5
+  starParticlePref: {fileID: 6504428964637726370, guid: 2afa7fcda937aca4da2ebe9ed80a7c2a, type: 3}
 --- !u!114 &982109028
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -417,4 +419,66 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 8619010595750315851, guid: ada9f071f57b00142acb18b0ecec12b6, type: 3}
   m_PrefabInstance: {fileID: 1704974542}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5599555932549998453
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 9160911870640820278}
+    m_Modifications:
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5599555931895206507, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+      propertyPath: m_Name
+      value: Dust Trail
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+--- !u!4 &1058632989 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5599555931895206504, guid: f1960d260540d6443a4908704efaf7d4, type: 3}
+  m_PrefabInstance: {fileID: 5599555932549998453}
   m_PrefabAsset: {fileID: 0}
