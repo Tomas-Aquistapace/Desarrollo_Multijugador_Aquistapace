@@ -29,6 +29,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Space(10)]
     [SerializeField] private GameObject playButton;
 
+    [Space(10)]
+    [Header("-- Transition --")]
+    [Space(20)]
+    [SerializeField] private SceneTransition transitionPref;
+    [SerializeField] private float waitingTime = 1f;
+
     private float timeBetweenUpdates = 1.5f;
     private float nextUpdateTime = 0f;
 
@@ -74,8 +80,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             UpdateRoomList(roomList);
             nextUpdateTime = Time.time + timeBetweenUpdates;
         }
-
     }
+
     public override void OnLeftRoom()
     {
         lobbyPanel.SetActive(true);
@@ -137,6 +143,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PlayerItem newPlayerItem = Instantiate(playerItemPref, playerItemParent);
             newPlayerItem.SetPlayerInfo(player.Value);
+            newPlayerItem.ActivateCrown(player.Value.IsMasterClient);
             playerItemsList.Add(newPlayerItem);
         }
     }
@@ -158,7 +165,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void OnClickPlayButton()
     {
-        PhotonNetwork.LoadLevel("Gameplay");
+        void ChangeScene()
+        {
+            PhotonNetwork.LoadLevel("Gameplay");
+        }
+
+        transitionPref.ChangeAnimation(waitingTime, ChangeScene);
+    }
+
+    public void OnClickCloseGame()
+    {
+        Application.Quit();
     }
     #endregion
 }

@@ -60,17 +60,22 @@ public class PlayerMovement : MonoBehaviour
     {
         isGrounded = CheckAllRays();
 
-        if (isGrounded && !auxGrounded)
+        if (isGrounded)
         {
-            dustParticle.Play();
-            anim.SetTrigger("IsFell");
-            anim.SetBool("IsFalling", false);
-            anim.SetBool("IsJumping", false);
+            anim.SetBool("IsFell", true);
 
-            auxGrounded = isGrounded;
+            if(!auxGrounded)
+            {
+                dustParticle.Play();
+                anim.SetBool("IsFalling", false);
+                anim.SetBool("IsJumping", false);
+
+                auxGrounded = isGrounded;
+            }
             return;
         }
 
+        anim.SetBool("IsFell", false);
         auxGrounded = isGrounded;
     }
 

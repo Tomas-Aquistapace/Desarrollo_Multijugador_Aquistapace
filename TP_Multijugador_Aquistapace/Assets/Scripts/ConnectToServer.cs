@@ -14,6 +14,19 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
     [SerializeField] private SceneTransition transition;
     [SerializeField] private float waitingTime;
 
+
+    // ----------------------------
+
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Return))
+        {
+            OnClickConnect();
+        }
+    }
+
+    // ----------------------------
+
     public void OnClickConnect()
     {
         if(usernameInput.text.Length >= 1)
@@ -27,15 +40,11 @@ public class ConnectToServer : MonoBehaviourPunCallbacks
 
     public override void OnConnectedToMaster()
     {
-        IEnumerator ChangeScene()
+        void ChangeScene()
         {
-            transition.ChangeAnimation(null);
-
-            yield return new WaitForSeconds(waitingTime);
-
             SceneManager.LoadScene(sceneLobby);
         }
 
-        StartCoroutine(ChangeScene());
+        transition.ChangeAnimation(waitingTime, ChangeScene);
     }
 }

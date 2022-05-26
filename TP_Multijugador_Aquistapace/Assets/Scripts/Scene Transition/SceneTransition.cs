@@ -1,3 +1,5 @@
+using UnityEngine.SceneManagement;
+using System.Collections;
 using UnityEngine;
 using System;
 
@@ -22,17 +24,24 @@ public class SceneTransition : MonoBehaviour
         return anim;
     }
 
-    public void ChangeAnimation(Action function)
+    public void ChangeAnimation(float secondsDelay, Action function = null)
     {
-        if (!awakeWithAnimation)
+        IEnumerator ChangeScene()
         {
-            anim.SetTrigger("FirstChange");
-        }
-        else
-        {
-            anim.SetTrigger("Change");
+            if (!awakeWithAnimation)
+            {
+                anim.SetTrigger("FirstChange");
+            }
+            else
+            {
+                anim.SetTrigger("Change");
+            }
+
+            yield return new WaitForSeconds(secondsDelay);
+
+            function?.Invoke();
         }
 
-        function?.Invoke();
+        StartCoroutine(ChangeScene());
     }
 }
