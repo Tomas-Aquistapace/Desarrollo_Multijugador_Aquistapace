@@ -39,6 +39,10 @@ MonoBehaviour:
   - DestroySpaceship
   - Fire
   - RespawnSpaceship
+  - RPC_AddNewComponent
+  - RPC_SetParent
+  - RPC_EnableHatSkin
+  - RPC_EnableFaceSkin
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -13,11 +13,18 @@ public class PlayerMovement : MonoBehaviour
     [Header("Particles")]
     [SerializeField] private ParticleSystem dustParticle;
     [SerializeField] private GameObject starParticlePref;
+    [SerializeField] private GameObject ArrowToPlayer;
+
+    [Header("Score")]
+    [SerializeField] private int score = 0;
+    public UI_PlayerScore playerScore;
 
     private Rigidbody rig;
     private Collider coll;
     private Animator anim;
     private PhotonView view;
+
+    private Transform cam;
 
     private bool canMove = false;
 
@@ -32,6 +39,10 @@ public class PlayerMovement : MonoBehaviour
         coll = GetComponent<Collider>();
         anim = GetComponentInChildren<Animator>();
         view = GetComponent<PhotonView>();
+
+        cam = FindObjectOfType<Camera>().transform;
+
+        ArrowToPlayer.SetActive(view.IsMine);
     }
 
     private void Update()
@@ -40,12 +51,27 @@ public class PlayerMovement : MonoBehaviour
         {
             InputMovement();
             InputJump();
+
+            ArrowToPlayer.transform.LookAt(cam);
         }
     }
 
     private void FixedUpdate()
     {
         isGrounded = CheckAllRays();
+
+        if (isGrounded && !auxGrounded)
+        {
+            dustParticle.Play();
+            anim.SetTrigger("IsFell");
+            anim.SetBool("IsFalling", false);
+            anim.SetBool("IsJumping", false);
+
+            auxGrounded = isGrounded;
+            return;
+        }
+
+        auxGrounded = isGrounded;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -79,18 +105,6 @@ public class PlayerMovement : MonoBehaviour
 
     private void InputJump()
     {
-        if(isGrounded && !auxGrounded)
-        {
-            dustParticle.Play();
-            anim.SetTrigger("IsFell");
-            anim.SetBool("IsFalling", false);
-
-            auxGrounded = isGrounded;
-            return;
-        }
-
-        auxGrounded = isGrounded;
-
         // Check if press the button
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
@@ -98,10 +112,12 @@ public class PlayerMovement : MonoBehaviour
 
             dustParticle.Stop();
 
-            anim.SetTrigger("IsJumping");
+            anim.SetBool("IsJumping", true);
+            anim.SetBool("IsFalling", false);
         }
         else if(!isGrounded)
         {
+            anim.SetBool("IsJumping", false);
             anim.SetBool("IsFalling", true);
         }
     }
@@ -141,6 +157,21 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // ----------------------------------
+
+    public void EarnPoint()
+    {
+        score += 1;
+        playerScore.SetScore(score.ToString());
+    }
+
+    public void PushUp()
+    {
+        rig.AddForce(Vector3.up * (jumpForce / 2), ForceMode.Impulse);
+        dustParticle.Stop();
+
+        anim.SetBool("IsJumping", true);
+        anim.SetBool("IsFalling", false);
+    }
 
     public void SmashPlayer()
     {
